@@ -20,25 +20,43 @@ export default function Detail(){
         setStock(prevState => ({...prevState, isFavorite: !prevState.isFavorite}));
     }
 
+    function Display() {
+        if (stock) {
+
+            if(stock.code) {
+
+                return (
+                    <section>  
+                        <h2>{stock.name}</h2>
+                        <h3>{stock.code}</h3>
+                        <div>
+                            Preço:{stock.price}€
+                        </div>
+                        <div>
+                            <button onClick={toggleFavorite}>
+                                { stock.isFavorite ? "Remover " : "Marcar "}
+                                Favorito
+                            </button>
+                        </div>
+                    </section>
+                )
+
+            }
+
+            else {
+                return (<p>Stock Inexistente</p>);
+            }
+        }
+
+        else {
+            return (<p>Aguarde um momento</p>);
+        }
+    }
+
     //conditional rendering porque o fetch é async tem de ser envolvido num elemento <></>
+    // transformado num if ? else : para retornar Stock Inesxistente
     
     return (
-        <>
-        { stock && (
-            <section>  
-                <h2>{stock.name}</h2>
-                <h3>{stock.code}</h3>
-                <div>
-                    Preço:{stock.price}€
-                </div>
-                <div>
-                    <button onClick={toggleFavorite}>
-                        { stock.isFavorite ? "Remover " : "Marcar "}
-                        Favorito
-                    </button>
-                </div>
-            </section>
-        )}
-        </>
+        <Display/>
     )
 }
