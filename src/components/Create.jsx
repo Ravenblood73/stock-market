@@ -22,8 +22,20 @@ export default function Create (){
         }));
     }
 
+    // fetch para fazer o submit dos dados "POST"... ver cheatguide JS Avançado do Ivo
+
     function handleSubmit(event){
-        event.preventDefault("submit");
+        event.preventDefault();
+
+        fetch("https://justivo.com/stockws.php?add", {
+            method: "POST",
+            headers: {
+                "content-type":"application/json"
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(result => console.log(result));
     }
 
     return (
